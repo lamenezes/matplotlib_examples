@@ -1,6 +1,6 @@
 from matplotlib import pyplot as plt
 
-languages_fics = [
+data = [
     ('Norwegian', 51), ('Japanese', 10), ('Dutch', 850), ('Filipino', 26),
     ('Finnish', 201), ('Danish', 87), ('Portuguese', 22778), ('Bulgarian', 16),
     ('French', 44265), ('Catalan', 64), ('Croatian', 13), ('Latin', 25),
@@ -12,20 +12,26 @@ languages_fics = [
     ('Swedish', 951), ('Russian', 851), ('Turkish', 48), ('Italian', 628), ('Icelandic', 6),
     ('German', 13488), ('Vietnamese', 62)
 ]
-languages_fics = [lf for lf in languages_fics if lf[1] > 100]
+fics_by_language = [row for row in data if row[1] > 100]
 
-languages = [language for language, _ in languages_fics]
-fics_count = [count for _, count in languages_fics]
+languages = [language for language, _ in fics_by_language]
+languages_nums = [i + 0.1 for i in range(len(languages))]
 
-# figure size 800x850
+fics = [count for _, count in fics_by_language]
+
+# set figure size 800x850
 plt.figure(figsize=(8, 8.5), dpi=100)
 
+# set x range from 0 to 15 and y range from 0 to 570,000
 plt.axis([0, 15, 0, 570000])
 
-rects = plt.bar([i + 0.1 for i, _ in enumerate(languages)], fics_count)
+rects = plt.bar(languages_nums, fics)
 plt.ylabel('# fics')
-plt.title('Quantidade de Fanfics de Harry Potter por idioma (fonte: fanfiction.net)')
-plt.xticks([i + 0.5 for i, _ in enumerate(languages)], languages, rotation='vertical')
+plt.title('Harry Potter fanfics by language (font: http://fanfiction.net)')
+
+# set x label as the languages. adds 0.5 space between each language
+language_nums = [i + 0.5 for i in languages_nums]
+plt.xticks(language_nums, languages, rotation='vertical')
 
 # plot actual value above each bar
 for rect in rects:
@@ -33,5 +39,8 @@ for rect in rects:
     plt.text(rect.get_x() + rect.get_width() / 2., height + 10,
              '{}'.format(height), ha='center', va='bottom', size=10)
 
+# set font size to 10
 plt.rc("font", size=10)
-plt.savefig('a.png')
+
+# save chart to fics.png
+plt.savefig('fics.png')
