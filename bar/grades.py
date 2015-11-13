@@ -1,3 +1,7 @@
+"""
+This script creates a bar chart that shows the grades students in two tests.
+"""
+
 import random
 
 from matplotlib import pyplot as plt

@@ -1,3 +1,10 @@
+"""
+This script plots a bar chart that shows the amount of Harry Potter
+fanfics written by language.
+
+The data has been taken from http://fanficton.net
+"""
+
 from matplotlib import pyplot as plt
 
 data = [
